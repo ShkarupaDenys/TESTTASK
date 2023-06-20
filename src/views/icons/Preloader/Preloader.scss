@@ -1,0 +1,13 @@
+.Preloader {
+  width: 24px;
+  height: 24px;
+  animation: 2s linear infinite preloader;
+}
+
+@keyframes preloader {
+  from {
+    rotate: 0;
+  } to {
+    rotate: 360deg;
+  }
+}

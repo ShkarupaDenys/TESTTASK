@@ -1,0 +1,67 @@
+@import 'Main.scss';
+
+.Input {
+  position: relative;
+
+  &__inner {
+    @extend .p1;
+
+    font-family: $main-font;
+    padding: 0;
+    color: $font-color;
+    border-radius: $input-border-radius;
+    border: 1px solid $grey-color-1;
+    padding: $input-gap-y $input-gap-x;
+    width: 100%;
+    height: $input-height;
+    outline: none;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+
+    .error & {
+      border: 2px solid $error-color;
+    }
+
+    &:focus + .Input__placeholder {
+      @extend .p2;
+
+      top: 0;
+      z-index: 3;
+    }
+  }
+
+  &__placeholder {
+    position: absolute;
+    left: $input-gap-x - $placeholder-gap-x;
+    color: $grey-color-3;
+    top: calc(50%);
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: $bg-color;
+    padding: 0 $placeholder-gap-x;
+    border-radius: $input-border-radius;
+    transition: all .2s linear;
+
+    .error & {
+      color: $error-color;
+    }
+  }
+
+  &__error,
+  &__helper-text {
+    @extend .p2;
+
+    position: absolute;
+    left: $input-gap-x + 2px;
+    bottom: -17px;
+  }
+
+  &__helper-text {
+    color: $grey-color-3;
+  }
+
+  &__error {
+    color: $error-color;
+  }
+}

@@ -1,0 +1,24 @@
+@import 'Main';
+
+// Common styles
+.Section-heading {
+  @extend .h1;
+  @extend .text-center;
+
+  margin-bottom: 50px;
+}
+
+// Users sections
+.Users {
+  padding-top: 140px;
+
+  &__button {
+    margin: 50px auto 0;
+  }
+}
+
+// NewUserForm sections
+.NewUserForm {
+  padding-top: 140px;
+  padding-bottom: 100px;
+}

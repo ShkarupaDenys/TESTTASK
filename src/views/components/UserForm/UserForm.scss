@@ -1,0 +1,32 @@
+.UserForm {
+  padding: 140px 0 100px;
+
+  &__input {
+    &:not(&--phone) {
+      margin-bottom: 50px;
+    }
+
+    &--phone {
+      margin-bottom: 43px;
+    }
+  }
+
+  &__positions-heading {
+    margin-bottom: 14px;
+  }
+
+  &__positions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 47px;
+  }
+
+  &__input-upload {
+    margin-bottom: 50px;
+  }
+
+  &__button {
+    margin: 0 auto;
+  }
+}

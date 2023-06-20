@@ -1,0 +1,25 @@
+@mixin hover($property, $toValue) {
+  transition: #{$property} 0.3s;
+
+  &:hover:not(:disabled) {
+    #{$property}: $toValue;
+  }
+}
+
+@mixin onTablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin onLaptop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin onDesktop {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}

@@ -1,0 +1,39 @@
+@import 'Main';
+
+.Checkbox {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  &__real {
+    display: none;
+  }
+
+  &__real:checked ~ &__custom {
+    border-color: $secondary-color;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &__custom {
+    @extend %centered;
+    
+    width: $checkbox-size;
+    height: $checkbox-size;
+    border: 1px solid $grey-color-1;
+    border-radius: $checkbox-border-radius;
+
+    &:before {
+      content: '';
+      width: $checkbox-size / 2;
+      height: $checkbox-size / 2;
+      border-radius: $checkbox-border-radius;
+      background-color: $secondary-color;
+      opacity: 0;
+    }
+  }
+}

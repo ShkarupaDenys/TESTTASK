@@ -1,0 +1,62 @@
+@import './styles/reset';
+@import './styles/fonts';
+@import './styles/vars';
+@import './styles/typography';
+@import './styles/mixins';
+@import './styles/extends';
+@import './styles/animations';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @extend .p1;
+
+  font-family: $main-font;
+  color: $font-color;
+  background-color: $bg-color;
+}
+
+.container {
+  padding: 0 16px;
+
+  @include onTablet {
+    padding: 0 32px;
+  }
+
+  @include onLaptop {
+    padding: 0 60px;
+  }
+
+  @include onDesktop {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+
+.container-sm {
+  padding: 0 16px;
+
+  @include onTablet {
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: $font-white-color;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}

@@ -1,0 +1,30 @@
+@import 'Main';
+
+.button {
+  @extend .p1;
+  @extend %centered;
+  @include hover('background-color', $primary-hover-color);
+
+  border: none;
+  font-family: $main-font;
+  color: $font-color;
+  background-color: $primary-color;
+  border-radius: $btn-border-radius;
+  padding: 4px 19px;
+  cursor: pointer;
+
+  &--sm {
+    width: 100px;
+  }
+
+  &--md {
+    width: 120px;
+    padding: 4px 18px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $grey-color-2;
+    color: $font-white-color;
+  }
+}

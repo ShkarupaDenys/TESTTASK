@@ -1,0 +1,16 @@
+@import 'Main';
+
+.Header {
+  padding: 13px 0;
+  background-color: $white-color;
+
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+  }
+}

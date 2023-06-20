@@ -1,0 +1,15 @@
+@import 'Main';
+
+.Notification {
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  padding: 15px 25px;
+  background-color: $white-color;
+  color: $error-color;
+  border: 2px solid $error-color;
+  border-radius: $card-border-radius;
+  max-width: 300px;
+  z-index: 100;
+  animation: fadeInFadeOut 3s ease-in;
+}

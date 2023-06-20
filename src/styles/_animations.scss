@@ -1,0 +1,19 @@
+//  fadeInFadeOut
+@keyframes fadeInFadeOut {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+}

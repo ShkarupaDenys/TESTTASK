@@ -1,0 +1,46 @@
+@import 'Main';
+
+.HeroScreen {
+  background:
+    url(../../../assets/heroscreen-bg-mob.webp)
+    center / cover
+    no-repeat;
+  padding: 40px 0 71px;
+
+  @include onTablet {
+   padding: 89px 0 88px;
+   background:
+    url(../../../assets/heroscreen-bg-tablet.webp)
+    center / cover
+    no-repeat;
+  }
+
+  @include onLaptop {
+    padding: 164px 0 163px;
+    background:
+      url(../../../assets/heroscreen-bg-laptop.webp)
+      center / cover
+      no-repeat;
+   }
+
+   @include onDesktop {
+    background:
+      url(../../../assets/heroscreen-bg-desktop.webp)
+      center / cover
+      no-repeat;
+   }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__heading {
+    margin-bottom: 21px;
+  }
+
+  &__sub-heading {
+    margin-bottom: 32px;
+  }
+}

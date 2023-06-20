@@ -1,0 +1,14 @@
+@import 'Main';
+
+.HeaderLogo {
+  @extend .p1;
+
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  color: $font-color;
+
+  &__name {
+    font-size: 13px;
+  }
+}

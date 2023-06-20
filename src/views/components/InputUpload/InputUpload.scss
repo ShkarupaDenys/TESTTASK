@@ -1,0 +1,75 @@
+@import 'Main';
+
+.InputUpload {
+  position: relative;
+
+  &__inner {
+    @extend .p1;
+
+    font-family: $main-font;
+    padding: 0;
+    color: $font-color;
+    border-radius: $input-border-radius;
+    border: 1px solid $grey-color-1;
+    padding: $input-gap-y $input-gap-x $input-gap-y 0;
+    width: 100%;
+    height: 54px;
+    outline: none;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+
+    &[type=file]::file-selector-button {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .error & {
+      border: 2px solid $error-color;
+      color: $error-color;
+    }
+  }
+
+  &__placeholder {
+    position: absolute;
+    left: 85px;
+    padding-left: $input-gap-x;
+    color: $grey-color-3;
+    top: 1px;
+    width: calc(100% - 86px);
+    line-height: $input-height - 2px;
+    border-radius: 0px $input-border-radius $input-border-radius 0px;
+    z-index: 1;
+    background-color: $bg-color;
+
+    .error & {
+      color: $error-color;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 14px 16px;
+    height: 54px;
+    border-radius: $input-border-radius 0px 0px $input-border-radius;
+    border: 1px solid $black-color-87;
+    cursor: pointer;
+    z-index: 5;
+
+    .error & {
+      border: 1px solid $error-color;
+      color: $error-color;
+    }
+  }
+
+  &__error {
+    @extend .p2;
+
+    position: absolute;
+    left: $input-gap-x + 2px;
+    color: $error-color;
+    bottom: -17px;
+  }
+}

@@ -1,0 +1,17 @@
+@import 'Main';
+
+.UsersList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @include onTablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @include onLaptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 29px;
+  }
+}

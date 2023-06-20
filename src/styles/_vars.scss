@@ -1,0 +1,35 @@
+//fonts
+$main-font: 'Nunito', sans-serif;
+
+// colors
+$primary-color: #F4E041;
+$secondary-color: #00BDD3;
+$black-color: rgb(0, 0, 0);
+$black-color-87: rgba(0, 0, 0, 0.87);
+$white-color: rgb(255, 255, 255);
+$white-color-87: rgba(255, 255, 255, 0.87);
+$bg-color: #E5E5E5;
+$error-color: #CB3D40;
+
+$grey-color-1: #D0CFCF;
+$grey-color-2: #B4B4B4;
+$grey-color-3: #7E7E7E;
+
+$primary-hover-color: #FFE302;
+$font-color: $black-color-87;
+$font-white-color: $white-color-87;
+
+// border-radius
+$btn-border-radius: 80px;
+$input-border-radius: 4px;
+$checkbox-border-radius: 50%;
+$card-border-radius: 10px;
+
+// gaps
+$input-gap-x: 16px;
+$input-gap-y: 14px;
+$placeholder-gap-x: 6px;
+
+// controls
+$input-height: 54px;
+$checkbox-size: 20px;
