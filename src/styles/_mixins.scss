@@ -1,8 +1,16 @@
+// hover
 @mixin hover($property, $toValue) {
   transition: #{$property} 0.3s;
 
   &:hover:not(:disabled) {
     #{$property}: $toValue;
+  }
+}
+
+// media queries
+@mixin onSmall {
+  @media (min-width: 320px) and (max-width: 359px) {
+    @content;
   }
 }
 

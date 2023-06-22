@@ -1,7 +1,14 @@
+@import 'mixins';
+
 .h1 {
   font-size: 40px;
   line-height: 40px;
   font-weight: 400;
+
+  @include onSmall {
+    font-size: 38px;
+    line-height: 38px;
+  }
 }
 
 .p1 {
