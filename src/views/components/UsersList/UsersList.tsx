@@ -1,4 +1,4 @@
-import { User } from "types/User";
+import { User } from "types";
 import { UserCard } from "views/components";
 import './UsersList.scss';
 

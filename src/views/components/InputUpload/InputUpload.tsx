@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { handleErrorMessage } from 'utils/helpers';
-import { InputUploadProps } from 'types/InputUploadProps';
+import { InputUploadProps } from 'types';
 import classNames from 'classnames';
 import './InputUpload.scss';
 

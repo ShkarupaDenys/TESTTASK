@@ -1,4 +1,4 @@
-import { Errors } from 'types/Errors';
+import { Errors } from 'types';
 
 export const API = 'https://frontend-test-assignment-api.abz.agency';
 
@@ -21,8 +21,8 @@ function request(
 
   return fetch(API + url, options)
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Something went wrong.');
+      if (response.status === 409) {
+        throw new Error(Errors.status409).message;
       }
 
       if (!response.headers.get('content-type').includes('application/json')) {
@@ -33,8 +33,8 @@ function request(
         throw new Error('Page not found');
       }
 
-      if (response.status === 409) {
-        throw new Error(Errors.status409).message;
+      if (!response.ok) {
+        throw new Error('Something went wrong.');
       }
 
       return response.json();

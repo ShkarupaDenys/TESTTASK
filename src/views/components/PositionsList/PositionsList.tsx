@@ -1,4 +1,4 @@
-import { Position } from "types/Position";
+import { Position } from "types";
 import { Checkbox } from "views/components";
 
 interface Props {

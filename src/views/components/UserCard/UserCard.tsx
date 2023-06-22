@@ -1,6 +1,6 @@
-import { PhotoCover } from 'views/icons/PhotoCover';
+import { PhotoCover } from 'views/icons';
 import { API } from 'utils/fetchClient';
-import { User } from 'types/User';
+import { User } from 'types';
 import './UserCard.scss';
 
 interface Props {

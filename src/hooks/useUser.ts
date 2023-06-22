@@ -1,17 +1,18 @@
 import { getUsersFromServer } from "api";
 import { useCallback, useMemo, useState } from "react";
-import { User } from "types/User";
+import { Loading, User } from "types";
 import { API } from "utils/fetchClient";
 
 export const useUser = () => {
   const [nextUrl, setNextUrl] = useState('/api/v1/users?page=1&count=6');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<Loading>(Loading.None);
   const [users, setUsers] = useState<User[]>([]);
+  const [newUser, setNewUser] = useState(0);
 
   const visibleUsers = useMemo(() => [...users], [users]);
 
   const getUsers = useCallback(async () => {
-    setLoading(true);
+    setLoading(Loading.ShowMore);
 
     try {
       const { links, users } = await getUsersFromServer(nextUrl);
@@ -30,12 +31,13 @@ export const useUser = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setLoading(Loading.None);
     }
   }, [nextUrl, visibleUsers.length]);
 
-  const addNewUser = useCallback(async () => {
-    setLoading(true);
+  const addNewUser = useCallback(async (userId: number) => {
+    setLoading(Loading.ShowMore);
+    setNewUser(userId)
 
     const count = nextUrl ? visibleUsers.length : visibleUsers.length + 1;
 
@@ -45,12 +47,20 @@ export const useUser = () => {
       );
 
       setUsers(users);
-    } catch {
-      console.error('error');
+    } catch (error) {
+      console.error(error);
     } finally {
-      setLoading(false);
+      setLoading(Loading.None);
     }
   }, [nextUrl, visibleUsers]);
 
-  return { nextUrl, loading, visibleUsers, getUsers, addNewUser };
+  return { 
+    newUser,
+    nextUrl,
+    loading,
+    visibleUsers,
+    getUsers,
+    addNewUser,
+    setLoading,
+  };
 }

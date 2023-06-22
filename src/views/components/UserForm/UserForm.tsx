@@ -1,12 +1,10 @@
 import {
-  ChangeEvent,
+  FC,
   memo,
-  useCallback,
-  useEffect,
   useRef,
   useState,
-  FC,
-  FormEvent,
+  useEffect,
+  useCallback,
 } from 'react';
 
 import {
@@ -18,24 +16,25 @@ import {
 
 import {
   cutName,
-  hasError,
   isEmail,
-  optimizePnone,
+  hasError,
   resizeFile,
+  optimizePnone,
 } from 'utils/helpers';
 import { postUserToServer } from 'api';
-import { useToken, usePositions } from 'hooks';
-import { FormValues } from 'types/FormValues';
+import { useToken, usePositions, useUser } from 'hooks';
+import { FormValues, Loading, OnChange, OnSubmit } from 'types';
 import './UserForm.scss';
 
 interface Props {
-  addNewUser: () => void;
+  addNewUser: (userId: number) => void;
   setError: (error: string) => void;
 }
 
 export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
   const form = useRef(null);
   const { token, getToken } = useToken();
+  const { loading, setLoading } = useUser();
   const { positions, getPositions } = usePositions();
   const [errorFields, seterrorFields] = useState<string[]>([]);
   const [formValues, setFormValues] = useState<FormValues>({
@@ -134,7 +133,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     );
   }, []);
 
-  const handleUpload = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = useCallback((e: OnChange) => {
     const { name, files } = e.target;
 
     if (!files) {
@@ -147,7 +146,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     );
   }, []);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: OnSubmit) => {
     e.preventDefault();
 
     const isValid = isValidForm(formValues);
@@ -155,6 +154,8 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     if (!isValid) {
       return;
     }
+
+    setLoading(Loading.Submit);
 
     const phone = optimizePnone(formValues.phone).slice(1);
     const formData = new FormData(form.current as unknown as HTMLFormElement);
@@ -176,13 +177,15 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     }
 
     try {
-      await postUserToServer(formData, token);
+      const { user_id } = await postUserToServer(formData, token);
 
-      addNewUser();
+      addNewUser(user_id);
     } catch (errorMessage) {
       if (typeof errorMessage === 'string') {
         setError(errorMessage);
       }
+    } finally {
+      setLoading(Loading.None);
     }
   };
 
@@ -232,7 +235,12 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
         isEmpty={hasError(errorFields, 'photo')}
         value={!!formValues.photo}
       />
-      <Button type="submit" content="Sign up" className="UserForm__button" />
+      <Button
+        type="submit"
+        content="Sign up"
+        className="UserForm__button"
+        loading={loading === Loading.Submit}
+      />
     </form>
   );
 });

@@ -17,3 +17,12 @@
     transform: translateX(50%);
   }
 }
+
+//  preloader
+@keyframes preloader {
+  from {
+    rotate: 0;
+  } to {
+    rotate: 360deg;
+  }
+}

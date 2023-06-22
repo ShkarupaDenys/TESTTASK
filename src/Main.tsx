@@ -8,12 +8,14 @@ import {
   HeroScreen,
   Notification,
 } from 'views/components';
+import { Success } from 'views/icons';
 import { useUser } from 'hooks';
 import 'Main.scss';
+import { Loading } from 'types';
 
 export const Main = () => {
   const [error, setError] = useState<string>('');
-  const { nextUrl, loading, visibleUsers, addNewUser, getUsers } = useUser();
+  const { newUser, nextUrl, loading, visibleUsers, addNewUser, getUsers } = useUser();
 
   useEffect(() => {
     getUsers();
@@ -40,7 +42,7 @@ export const Main = () => {
             size="md"
             content="Show more"
             className="Users__button"
-            loading={loading}
+            loading={loading === Loading.ShowMore}
             onClick={getUsers}
           />
         )}
@@ -48,9 +50,13 @@ export const Main = () => {
       <Section
         className="NewUserForm"
         id="NewUserForm"
-        title="Working with POST request"
+        title={newUser
+          ? 'User successfully registered'
+          : 'Working with POST request'}
       >
-        <UserForm addNewUser={addNewUser} setError={setError} />
+        {newUser
+          ? <Success className='NewUserForm__icon' />
+          : <UserForm addNewUser={addNewUser} setError={setError} />}
       </Section>
       {error && <Notification text={error} />}
     </>

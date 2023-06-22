@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { PhoneInput } from '@ua-opendata/react-phone-input';
 import { handleErrorMessage } from 'utils/helpers';
-import { InputProps } from 'types/InputProps';
+import { InputProps } from 'types';
 import classNames from 'classnames';
 import './Input.scss';
 

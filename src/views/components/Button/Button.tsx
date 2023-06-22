@@ -1,4 +1,4 @@
-import { Preloader } from 'views/icons/Preloader';
+import { Preloader } from 'views/icons';
 import classNames from 'classnames';
 import './Button.scss';
 
