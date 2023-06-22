@@ -1,7 +1,7 @@
 # TESTTASK
 Test Assignment
 
-> Test app was developed by React.
+> The app was developed by React.
 
 1. Used React Hooks as `useState`, `useRef`, `useEffect`, `useCallback`, `useMemo`.
 
