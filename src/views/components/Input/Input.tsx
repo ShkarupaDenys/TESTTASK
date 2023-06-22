@@ -37,12 +37,14 @@ export const Input: FC<InputProps> = ({
           className="Input__inner"
           name={name}
           value={value}
+          aria-label={name}
           onBlur={handleOnBlur}
           onFocus={() => setHasplaceholder(true)}
           onChange={(e) => onChange(e.target.value, name)}
         />
       ) : (
         <input
+          aria-label={name}
           type={type}
           name={name}
           className="Input__inner"
