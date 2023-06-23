@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import './Logo.scss';
 
 export const Logo = () => (

@@ -15,13 +15,14 @@ function request(
   if (data) {
     options.body = data;
     options.headers = {
-      'Token': token,
+      Token: token,
     };
   }
 
   return fetch(API + url, options)
     .then(response => {
       if (response.status === 409) {
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw new Error(Errors.status409).message;
       }
 

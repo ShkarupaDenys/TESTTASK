@@ -1,5 +1,5 @@
-import { Button, HeaderLogo } from "views/components";
-import './Header.scss'
+import { Button, HeaderLogo } from 'views/components';
+import './Header.scss';
 
 export const Header = () => (
   <header className="Header">
@@ -11,4 +11,4 @@ export const Header = () => (
       </div>
     </div>
   </header>
-)
+);

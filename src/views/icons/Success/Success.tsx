@@ -1,9 +1,10 @@
+/* eslint-disable max-len */
 import { FC } from 'react';
 import './Success.scss';
 import classNames from 'classnames';
 
 interface Props {
-  className?: string; 
+  className?: string;
 }
 
 export const Success: FC<Props> = ({ className }) => (

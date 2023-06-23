@@ -1,5 +1,5 @@
-import { Position } from "types";
-import { Checkbox } from "views/components";
+import { Position } from 'types';
+import { Checkbox } from 'views/components';
 
 interface Props {
   positions: Position[];
@@ -13,19 +13,17 @@ export const PositionsList: React.FC<Props> = ({
   handleOnChange,
 }) => (
   <>
-    <p className="UserForm__positions-heading p1">
-      Select your position
-    </p>
+    <p className="UserForm__positions-heading p1">Select your position</p>
     <div className="UserForm__positions-list">
       {positions.map(({ id, name }) => (
-          <Checkbox
-            key={id}
-            id={id}
-            label={name}
-            checked={currrentPosition === Number(id)}
-            onChange={handleOnChange}
-          />
-        ))}
+        <Checkbox
+          key={id}
+          id={id}
+          label={name}
+          checked={currrentPosition === Number(id)}
+          onChange={handleOnChange}
+        />
+      ))}
     </div>
   </>
 );

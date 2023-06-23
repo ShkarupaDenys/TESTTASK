@@ -9,7 +9,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   name = 'position_id',
   onChange,
 }) => (
-  <label className='Checkbox'>
+  <label className="Checkbox">
     <input
       id={id}
       name={name}
@@ -21,6 +21,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       onChange={() => onChange(id, name)}
     />
     <div className="Checkbox__custom" />
-      {label}
+    {label}
   </label>
-)
+);

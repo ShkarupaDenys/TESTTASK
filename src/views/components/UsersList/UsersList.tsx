@@ -1,5 +1,5 @@
-import { User } from "types";
-import { UserCard } from "views/components";
+import { User } from 'types';
+import { UserCard } from 'views/components';
 import './UsersList.scss';
 
 interface Props {

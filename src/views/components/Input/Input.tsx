@@ -27,11 +27,7 @@ export const Input: FC<InputProps> = ({
   };
 
   return (
-    <div className={classNames(
-      'Input',
-      { error: isEmpty },
-      className,
-    )}>
+    <div className={classNames('Input', { error: isEmpty }, className)}>
       {type === 'tel' ? (
         <PhoneInput
           className="Input__inner"

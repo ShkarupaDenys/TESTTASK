@@ -48,6 +48,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "@mate-academy/eslint-config-react-typescript": "^1.0.11",
+    "@mate-academy/stylelint-config": "^0.0.9",
+    "eslint": "^8.43.0",
+    "gh-pages": "^5.0.0",
+    "stylelint": "^15.9.0"
   }
 }

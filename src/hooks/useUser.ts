@@ -1,7 +1,7 @@
-import { getUsersFromServer } from "api";
-import { useCallback, useMemo, useState } from "react";
-import { Loading, User } from "types";
-import { API } from "utils/fetchClient";
+import { getUsersFromServer } from 'api';
+import { useCallback, useMemo, useState } from 'react';
+import { Loading, User } from 'types';
+import { API } from 'utils/fetchClient';
 
 export const useUser = () => {
   const [nextUrl, setNextUrl] = useState('/api/v1/users?page=1&count=6');
@@ -15,20 +15,21 @@ export const useUser = () => {
     setLoading(Loading.ShowMore);
 
     try {
-      const { links, users } = await getUsersFromServer(nextUrl);
+      const { links, users: dataUsers } = await getUsersFromServer(nextUrl);
 
       const path = links.next_url;
 
       if (!visibleUsers.length) {
-        setUsers(users);
+        setUsers(dataUsers);
         setNextUrl(path.replace(API, ''));
 
         return;
       }
 
       setNextUrl(path ? path.replace(API, '') : null);
-      setUsers((oldData) => [...oldData, ...users]);
+      setUsers((oldData) => [...oldData, ...dataUsers]);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     } finally {
       setLoading(Loading.None);
@@ -37,24 +38,25 @@ export const useUser = () => {
 
   const addNewUser = useCallback(async (userId: number) => {
     setLoading(Loading.ShowMore);
-    setNewUser(userId)
+    setNewUser(userId);
 
     const count = nextUrl ? visibleUsers.length : visibleUsers.length + 1;
 
     try {
-      const { users } = await getUsersFromServer(
-        `/api/v1/users?page=1&count=${count}`
+      const { dataUsers } = await getUsersFromServer(
+        `/api/v1/users?page=1&count=${count}`,
       );
 
-      setUsers(users);
+      setUsers(dataUsers);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     } finally {
       setLoading(Loading.None);
     }
   }, [nextUrl, visibleUsers]);
 
-  return { 
+  return {
     newUser,
     nextUrl,
     loading,
@@ -63,4 +65,4 @@ export const useUser = () => {
     addNewUser,
     setLoading,
   };
-}
+};

@@ -10,12 +10,19 @@ import {
 } from 'views/components';
 import { Success } from 'views/icons';
 import { useUser } from 'hooks';
-import 'Main.scss';
 import { Loading } from 'types';
+import 'Main.scss';
 
 export const Main = () => {
   const [error, setError] = useState<string>('');
-  const { newUser, nextUrl, loading, visibleUsers, addNewUser, getUsers } = useUser();
+  const {
+    newUser,
+    nextUrl,
+    loading,
+    visibleUsers,
+    addNewUser,
+    getUsers,
+  } = useUser();
 
   useEffect(() => {
     getUsers();
@@ -32,8 +39,8 @@ export const Main = () => {
       <Header />
       <HeroScreen />
       <Section
-        className="Users"
         id="Users"
+        className="Users"
         title="Working with GET request"
       >
         <UsersList users={visibleUsers} />
@@ -50,13 +57,15 @@ export const Main = () => {
       <Section
         className="NewUserForm"
         id="NewUserForm"
-        title={newUser
-          ? 'User successfully registered'
-          : 'Working with POST request'}
+        title={
+          newUser ? 'User successfully registered' : 'Working with POST request'
+        }
       >
-        {newUser
-          ? <Success className='NewUserForm__icon' />
-          : <UserForm addNewUser={addNewUser} setError={setError} />}
+        {newUser ? (
+          <Success className="NewUserForm__icon" />
+        ) : (
+          <UserForm addNewUser={addNewUser} setError={setError} />
+        )}
       </Section>
       {error && <Notification text={error} />}
     </>

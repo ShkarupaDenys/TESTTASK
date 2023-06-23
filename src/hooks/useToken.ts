@@ -1,18 +1,19 @@
-import { useState } from "react";
-import { getTokenFromServer } from "api";
+import { useState } from 'react';
+import { getTokenFromServer } from 'api';
 
 export const useToken = () => {
   const [token, setToken] = useState('');
 
   const getToken = async () => {
     try {
-      const { token } = await getTokenFromServer();
+      const { data } = await getTokenFromServer();
 
-      setToken(token);
+      setToken(data);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
   return { token, getToken };
-}
+};

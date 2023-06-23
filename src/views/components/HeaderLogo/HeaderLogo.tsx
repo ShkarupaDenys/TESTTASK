@@ -1,5 +1,5 @@
-import { Logo } from "views/icons";
-import './HeaderLogo.scss'
+import { Logo } from 'views/icons';
+import './HeaderLogo.scss';
 
 export const HeaderLogo = () => (
   <a

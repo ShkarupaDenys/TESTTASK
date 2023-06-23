@@ -8,11 +8,11 @@ import {
 } from 'react';
 
 import {
-  Input,
-  Button,
-  InputUpload,
-  PositionsList,
-} from 'views/components';
+  FormValues,
+  Loading,
+  OnChange,
+  OnSubmit,
+} from 'types';
 
 import {
   cutName,
@@ -21,9 +21,16 @@ import {
   resizeFile,
   optimizePnone,
 } from 'utils/helpers';
+
+import {
+  Input,
+  Button,
+  InputUpload,
+  PositionsList,
+} from 'views/components';
+
 import { postUserToServer } from 'api';
 import { useToken, usePositions, useUser } from 'hooks';
-import { FormValues, Loading, OnChange, OnSubmit } from 'types';
 import './UserForm.scss';
 
 interface Props {
@@ -54,9 +61,9 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     (values: Omit<FormValues, 'position_id'>) => {
       Object.entries(values).forEach((field) => {
         if (!field[1] && !errorFields.includes(field[0])) {
-          const hasError = errorFields.includes(`${field[0]}-empty`);
+          const isError = errorFields.includes(`${field[0]}-empty`);
 
-          if (hasError) {
+          if (isError) {
             return;
           }
 
@@ -68,36 +75,41 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
       return !fieldValues.some((field) => !field);
     },
-    [errorFields]
+    [errorFields],
   );
 
   const handleValidateForm = (values: Omit<FormValues, 'position_id'>) => {
-    const { name, email, phone, photo } = values;
+    const {
+      name,
+      email,
+      phone,
+      photo,
+    } = values;
 
     const isValidEmail = isEmail(email);
     const isValidName = name.length >= 2 && name.length <= 60;
     const isValidPhone = optimizePnone(phone).length === 13;
 
     if (!isValidEmail && email) {
-      const hasError = errorFields.includes('email-invalid');
+      const isError = errorFields.includes('email-invalid');
 
-      if (!hasError) {
+      if (!isError) {
         seterrorFields((old) => [...old, 'email-invalid']);
       }
     }
 
     if (!isValidName && name) {
-      const hasError = errorFields.includes('name-invalid');
+      const isError = errorFields.includes('name-invalid');
 
-      if (!hasError) {
+      if (!isError) {
         seterrorFields((old) => [...old, 'name-invalid']);
       }
     }
 
     if (!isValidPhone && phone) {
-      const hasError = errorFields.includes('phone-invalid');
+      const isError = errorFields.includes('phone-invalid');
 
-      if (!hasError) {
+      if (!isError) {
         seterrorFields((old) => [...old, 'phone-invalid']);
       }
     }
@@ -105,9 +117,9 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     if (photo) {
       const fileSize = Math.round(photo.size / 1024);
       const isValidPhoto = fileSize < 5120;
-      const hasError = errorFields.includes('photo-invalid');
+      const isError = errorFields.includes('photo-invalid');
 
-      if (!isValidPhoto && photo && !hasError) {
+      if (!isValidPhoto && photo && !isError) {
         seterrorFields((old) => [...old, 'photo-invalid']);
       }
     }
@@ -115,22 +127,31 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     return isValidEmail && isValidName && isValidPhone;
   };
 
-  const isValidForm = (form: FormValues) => {
-    const { name, photo, email, phone } = form;
+  const isValidForm = (values: FormValues) => {
+    const {
+      name,
+      photo,
+      email,
+      phone,
+    } = values;
 
-    const fields = { name: name.trim(), photo, email, phone };
+    const fields = {
+      name: name.trim(),
+      photo,
+      email,
+      phone,
+    };
 
     const isAllFieldaFilled = handleErrorFields(fields);
-    const isValidForm = handleValidateForm(fields);
+    const isValid = handleValidateForm(fields);
 
-    return isAllFieldaFilled && isValidForm;
+    return isAllFieldaFilled && isValid;
   };
 
   const handleOnChange = useCallback((value: string, name: string) => {
     setFormValues((oldData) => Object({ ...oldData, [name]: value }));
-    seterrorFields((oldNames) =>
-      oldNames.filter((item) => cutName(item) !== name)
-    );
+    seterrorFields((oldNames) => oldNames
+      .filter((item) => cutName(item) !== name));
   }, []);
 
   const handleUpload = useCallback((e: OnChange) => {
@@ -141,9 +162,8 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     }
 
     setFormValues((oldData) => Object({ ...oldData, [name]: files[0] }));
-    seterrorFields((oldNames) =>
-      oldNames.filter((item) => cutName(item) !== name)
-    );
+    seterrorFields((oldNames) => oldNames
+      .filter((item) => cutName(item) !== name));
   }, []);
 
   const handleSubmit = async (e: OnSubmit) => {
@@ -159,9 +179,10 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     const phone = optimizePnone(formValues.phone).slice(1);
     const formData = new FormData(form.current as unknown as HTMLFormElement);
+
     formData.append('phone', phone);
 
-    const photo = formValues.photo;
+    const { photo } = formValues;
 
     if (!photo) {
       return;
@@ -173,13 +194,14 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
       formData.append('photo', img);
     } catch (error) {
-      console.error(error)
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
 
     try {
-      const { user_id } = await postUserToServer(formData, token);
+      const { user_id: userId } = await postUserToServer(formData, token);
 
-      addNewUser(user_id);
+      addNewUser(userId);
     } catch (errorMessage) {
       if (typeof errorMessage === 'string') {
         setError(errorMessage);

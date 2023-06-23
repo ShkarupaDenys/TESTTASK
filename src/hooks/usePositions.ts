@@ -1,18 +1,19 @@
-import { useState } from "react";
-import { getPositionsFromServer } from "api";
+import { useState } from 'react';
+import { getPositionsFromServer } from 'api';
 
 export const usePositions = () => {
   const [positions, setPositions] = useState([]);
 
   const getPositions = async () => {
     try {
-      const { positions } = await getPositionsFromServer();
+      const { positions: dataPositions } = await getPositionsFromServer();
 
-      setPositions(positions);
+      setPositions(dataPositions);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
   return { positions, getPositions };
-}
+};

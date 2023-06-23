@@ -1,4 +1,4 @@
-import { client } from "utils/fetchClient";
+import { client } from 'utils/fetchClient';
 
 export const postUserToServer = (formData: FormData, token: string) => {
   return client.post('/api/v1/users', formData, token);

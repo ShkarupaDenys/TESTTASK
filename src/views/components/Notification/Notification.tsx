@@ -13,6 +13,6 @@ export const Notification: FC<Props> = ({ text = 'text' }) => (
         {text}
       </div>
     </div>,
-    document.body
+    document.body,
   )
 );

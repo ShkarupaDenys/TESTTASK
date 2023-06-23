@@ -37,6 +37,7 @@ export const Button: React.FC<Props> = ({
       </a>
     ) : (
       <button
+        // eslint-disable-next-line react/button-has-type
         type={type}
         disabled={disabled}
         className={classNames(

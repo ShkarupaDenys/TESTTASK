@@ -4,4 +4,4 @@ export interface FormValues {
   phone: string;
   photo: null | File;
   position_id: number;
-};
+}
