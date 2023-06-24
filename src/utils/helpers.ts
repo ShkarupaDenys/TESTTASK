@@ -15,16 +15,14 @@ export const resizeFile = (file: File) => new Promise((resolve) => {
     'JPEG',
     100,
     0,
-    (uri) => {
-      resolve(uri);
-    },
+    resolve,
     'file',
     75,
     75,
   );
 });
 
-export const optimizePnone = (phone: string) => {
+export const optimizePhnone = (phone: string) => {
   return phone
     .replaceAll(' ', '')
     .replaceAll('-', '')

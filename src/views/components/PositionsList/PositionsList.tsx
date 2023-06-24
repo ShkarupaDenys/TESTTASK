@@ -18,9 +18,9 @@ export const PositionsList: React.FC<Props> = ({
       {positions.map(({ id, name }) => (
         <Checkbox
           key={id}
-          id={id}
+          id={id.toString()}
           label={name}
-          checked={currrentPosition === Number(id)}
+          checked={Number(currrentPosition) === id}
           onChange={handleOnChange}
         />
       ))}

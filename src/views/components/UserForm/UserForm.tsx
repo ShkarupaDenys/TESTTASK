@@ -19,7 +19,7 @@ import {
   isEmail,
   hasError,
   resizeFile,
-  optimizePnone,
+  optimizePhnone,
 } from 'utils/helpers';
 
 import {
@@ -88,7 +88,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     const isValidEmail = isEmail(email);
     const isValidName = name.length >= 2 && name.length <= 60;
-    const isValidPhone = optimizePnone(phone).length === 13;
+    const isValidPhone = optimizePhnone(phone).length === 13;
 
     if (!isValidEmail && email) {
       const isError = errorFields.includes('email-invalid');
@@ -148,7 +148,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     return isAllFieldaFilled && isValid;
   };
 
-  const handleOnChange = useCallback((value: string, name: string) => {
+  const handleOnChange = useCallback((value: string | number, name: string) => {
     setFormValues((oldData) => Object({ ...oldData, [name]: value }));
     seterrorFields((oldNames) => oldNames
       .filter((item) => cutName(item) !== name));
@@ -177,7 +177,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     setLoading(Loading.Submit);
 
-    const phone = optimizePnone(formValues.phone).slice(1);
+    const phone = optimizePhnone(formValues.phone).slice(1);
     const formData = new FormData(form.current as unknown as HTMLFormElement);
 
     formData.append('phone', phone);

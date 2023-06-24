@@ -14,7 +14,7 @@ import { Loading } from 'types';
 import 'Main.scss';
 
 export const Main = () => {
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState('');
   const {
     newUser,
     nextUrl,

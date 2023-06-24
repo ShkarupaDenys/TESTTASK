@@ -6,6 +6,7 @@ export const usePositions = () => {
 
   const getPositions = async () => {
     try {
+      // eslint-disable-next-line max-len
       const { positions: dataPositions } = await getPositionsFromServer();
 
       setPositions(dataPositions);
