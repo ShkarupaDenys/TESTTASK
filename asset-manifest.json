@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/TESTTASK/static/css/main.b82cc458.css",
-    "main.js": "/TESTTASK/static/js/main.73062dd5.js",
+    "main.js": "/TESTTASK/static/js/main.5e61a865.js",
     "static/media/heroscreen-bg-desktop.webp": "/TESTTASK/static/media/heroscreen-bg-desktop.4154390a67d030fba6d2.webp",
     "static/media/heroscreen-bg-laptop.webp": "/TESTTASK/static/media/heroscreen-bg-laptop.0d414575509a6bdd9542.webp",
     "static/media/heroscreen-bg-tablet.webp": "/TESTTASK/static/media/heroscreen-bg-tablet.d5e932d7b66e08a46255.webp",
     "static/media/heroscreen-bg-mob.webp": "/TESTTASK/static/media/heroscreen-bg-mob.ae0d6693c28709eddceb.webp",
     "index.html": "/TESTTASK/index.html",
     "main.b82cc458.css.map": "/TESTTASK/static/css/main.b82cc458.css.map",
-    "main.73062dd5.js.map": "/TESTTASK/static/js/main.73062dd5.js.map"
+    "main.5e61a865.js.map": "/TESTTASK/static/js/main.5e61a865.js.map"
   },
   "entrypoints": [
     "static/css/main.b82cc458.css",
-    "static/js/main.73062dd5.js"
+    "static/js/main.5e61a865.js"
   ]
 }
