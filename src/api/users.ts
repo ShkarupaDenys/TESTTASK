@@ -1,9 +1,13 @@
+import { ResponseGetUsers, ResponsePostUser } from 'types';
 import { client } from 'utils/fetchClient';
 
-export const postUserToServer = (formData: FormData, token: string) => {
+export function postUserToServer(
+  formData: FormData,
+  token: string,
+): Promise<ResponsePostUser> {
   return client.post('/api/v1/users', formData, token);
-};
+}
 
-export const getUsersFromServer = (url: string) => {
+export function getUsersFromServer(url: string): Promise<ResponseGetUsers> {
   return client.get(url);
-};
+}

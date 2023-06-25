@@ -43,7 +43,7 @@ export const useUser = () => {
     const count = nextUrl ? visibleUsers.length : visibleUsers.length + 1;
 
     try {
-      const { dataUsers } = await getUsersFromServer(
+      const { users: dataUsers } = await getUsersFromServer(
         `/api/v1/users?page=1&count=${count}`,
       );
 

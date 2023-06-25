@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getPositionsFromServer } from 'api';
 
 export const usePositions = () => {
   const [positions, setPositions] = useState([]);
 
-  const getPositions = async () => {
+  const getPositions = useCallback(async () => {
     try {
       // eslint-disable-next-line max-len
       const { positions: dataPositions } = await getPositionsFromServer();
@@ -12,9 +12,9 @@ export const usePositions = () => {
       setPositions(dataPositions);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(error);
+      console.warn(error);
     }
-  };
+  }, []);
 
   return { positions, getPositions };
 };

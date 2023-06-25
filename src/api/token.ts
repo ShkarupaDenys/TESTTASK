@@ -1,3 +1,6 @@
+import { ResponseGetToken } from 'types';
 import { client } from 'utils/fetchClient';
 
-export const getTokenFromServer = () => client.get('/api/v1/token');
+export function getTokenFromServer(): Promise<ResponseGetToken> {
+  return client.get('/api/v1/token');
+}

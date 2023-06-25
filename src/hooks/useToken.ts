@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getTokenFromServer } from 'api';
 
 export const useToken = () => {
   const [token, setToken] = useState('');
 
-  const getToken = async () => {
+  const getToken = useCallback(async () => {
     try {
-      const { data } = await getTokenFromServer();
+      const { token: dataToken } = await getTokenFromServer();
 
-      setToken(data);
+      setToken(dataToken);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
     }
-  };
+  }, []);
 
   return { token, getToken };
 };

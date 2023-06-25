@@ -22,7 +22,7 @@ export const resizeFile = (file: File) => new Promise((resolve) => {
   );
 });
 
-export const optimizePhnone = (phone: string) => {
+export const optimizePhone = (phone: string) => {
   return phone
     .replaceAll(' ', '')
     .replaceAll('-', '')

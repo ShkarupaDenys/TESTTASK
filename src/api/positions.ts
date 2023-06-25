@@ -1,5 +1,6 @@
+import { ResponseGetPositions } from 'types';
 import { client } from 'utils/fetchClient';
 
-export const getPositionsFromServer = () => {
+export function getPositionsFromServer(): Promise<ResponseGetPositions> {
   return client.get('/api/v1/positions');
-};
+}

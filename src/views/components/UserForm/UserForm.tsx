@@ -19,7 +19,7 @@ import {
   isEmail,
   hasError,
   resizeFile,
-  optimizePhnone,
+  optimizePhone,
 } from 'utils/helpers';
 
 import {
@@ -88,7 +88,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     const isValidEmail = isEmail(email);
     const isValidName = name.length >= 2 && name.length <= 60;
-    const isValidPhone = optimizePhnone(phone).length === 13;
+    const isValidPhone = optimizePhone(phone).length === 13;
 
     if (!isValidEmail && email) {
       const isError = errorFields.includes('email-invalid');
@@ -177,7 +177,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     setLoading(Loading.Submit);
 
-    const phone = optimizePhnone(formValues.phone).slice(1);
+    const phone = optimizePhone(formValues.phone).slice(1);
     const formData = new FormData(form.current as unknown as HTMLFormElement);
 
     formData.append('phone', phone);
@@ -189,8 +189,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     }
 
     try {
-      const result: unknown = await resizeFile(photo);
-      const img: File = result as File;
+      const img = await resizeFile(photo) as File;
 
       formData.append('photo', img);
     } catch (error) {
@@ -246,7 +245,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       {!!positions.length && (
         <PositionsList
           positions={positions}
-          currrentPosition={formValues.position_id}
+          currentPosition={formValues.position_id}
           handleOnChange={handleOnChange}
         />
       )}

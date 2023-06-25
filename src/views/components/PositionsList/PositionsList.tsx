@@ -3,13 +3,13 @@ import { Checkbox } from 'views/components';
 
 interface Props {
   positions: Position[];
-  currrentPosition: number;
+  currentPosition: number;
   handleOnChange: (value: string, name: string) => void;
 }
 
 export const PositionsList: React.FC<Props> = ({
   positions,
-  currrentPosition,
+  currentPosition,
   handleOnChange,
 }) => (
   <>
@@ -20,7 +20,7 @@ export const PositionsList: React.FC<Props> = ({
           key={id}
           id={id.toString()}
           label={name}
-          checked={Number(currrentPosition) === id}
+          checked={Number(currentPosition) === id}
           onChange={handleOnChange}
         />
       ))}
