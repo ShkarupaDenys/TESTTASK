@@ -22,11 +22,7 @@ export const UserCard: React.FC<Props> = ({ user }) => {
       {photo === `${API}/images/placeholders/placeholder.png`
         ? <PhotoCover className="UserCard__img" />
         : (
-          <img
-            src={photo}
-            alt={name}
-            className="UserCard__img"
-          />
+          <img src={photo} alt={name} className="UserCard__img" />
         )}
       <p className="UserCard__name p1" data-title={name}>
         <span className="truncate">{name}</span>
@@ -40,7 +36,7 @@ export const UserCard: React.FC<Props> = ({ user }) => {
         <span className="truncate">{email}</span>
       </a>
       <a href={`tel:${phone}`} className="UserCard__phone p1">
-        {phone.includes('+') ? phone : `+${phone}`}
+        {phone.startsWith('+') ? phone : `+${phone}`}
       </a>
     </div>
   );

@@ -18,16 +18,17 @@ export const useUser = () => {
       const { links, users: dataUsers } = await getUsersFromServer(nextUrl);
 
       const path = links.next_url;
+      const endpoint = path.replace(API, '');
 
       if (!visibleUsers.length) {
         setUsers(dataUsers);
-        setNextUrl(path.replace(API, ''));
+        setNextUrl(endpoint);
 
         return;
       }
 
-      setNextUrl(path ? path.replace(API, '') : null);
-      setUsers((oldData) => [...oldData, ...dataUsers]);
+      setNextUrl(path ? endpoint : null);
+      setUsers((prevUsers) => [...prevUsers, ...dataUsers]);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);

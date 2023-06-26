@@ -1,4 +1,4 @@
-export { Input } from './Input';
+export { Input, dataInputs } from './Input';
 export { Button } from './Button';
 export { Header } from './Header';
 export { Section } from './Section';

@@ -1,3 +1,4 @@
+import { FC, useMemo } from 'react';
 import { Preloader } from 'views/icons';
 import classNames from 'classnames';
 import './Button.scss';
@@ -13,7 +14,7 @@ interface Props {
   onClick?: () => void;
 }
 
-export const Button: React.FC<Props> = ({
+export const Button: FC<Props> = ({
   path,
   size = 'sm',
   type = 'button',
@@ -22,33 +23,32 @@ export const Button: React.FC<Props> = ({
   className,
   disabled = false,
   onClick,
-}) => (
-  <>
-    {path ? (
-      <a
-        href={`#${path}`}
-        className={classNames(
-          'button',
-          `button--${size}`,
-          className,
-        )}
-      >
-        {!loading ? content : <Preloader />}
-      </a>
-    ) : (
-      <button
-        // eslint-disable-next-line react/button-has-type
-        type={type}
-        disabled={disabled}
-        className={classNames(
-          'button',
-          `button--${size}`,
-          className,
-        )}
-        onClick={onClick}
-      >
-        {!loading ? content : <Preloader />}
-      </button>
-    )}
-  </>
-);
+}) => {
+  const buttonClassNames = classNames('button', `button--${size}`, className);
+  const buttonContent = useMemo(() => (
+    loading ? <Preloader /> : content
+  ), [content, loading]);
+
+  return (
+    <>
+      {path ? (
+        <a
+          href={`#${path}`}
+          className={buttonClassNames}
+        >
+          {buttonContent}
+        </a>
+      ) : (
+        <button
+          // eslint-disable-next-line react/button-has-type
+          type={type}
+          disabled={disabled}
+          className={buttonClassNames}
+          onClick={onClick}
+        >
+          {buttonContent}
+        </button>
+      )}
+    </>
+  );
+};

@@ -1,7 +1,7 @@
 import { InputType } from './InputType';
 
 export interface InputProps {
-  type?: InputType;
+  type: InputType;
   name: string;
   value: string;
   placeholder?: string;

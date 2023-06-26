@@ -8,10 +8,11 @@ import {
 } from 'react';
 
 import {
-  FormValues,
   Loading,
   OnChange,
   OnSubmit,
+  InputType,
+  FormValues,
 } from 'types';
 
 import {
@@ -25,6 +26,7 @@ import {
 import {
   Input,
   Button,
+  dataInputs,
   InputUpload,
   PositionsList,
 } from 'views/components';
@@ -43,7 +45,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
   const { token, getToken } = useToken();
   const { loading, setLoading } = useUser();
   const { positions, getPositions } = usePositions();
-  const [errorFields, seterrorFields] = useState<string[]>([]);
+  const [errorFields, setErrorFields] = useState<string[]>([]);
   const [formValues, setFormValues] = useState<FormValues>({
     name: '',
     email: '',
@@ -67,7 +69,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
             return;
           }
 
-          seterrorFields((oldNames) => [...oldNames, `${field[0]}-empty`]);
+          setErrorFields((oldNames) => [...oldNames, `${field[0]}-empty`]);
         }
       });
 
@@ -94,7 +96,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       const isError = errorFields.includes('email-invalid');
 
       if (!isError) {
-        seterrorFields((old) => [...old, 'email-invalid']);
+        setErrorFields((old) => [...old, 'email-invalid']);
       }
     }
 
@@ -102,7 +104,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       const isError = errorFields.includes('name-invalid');
 
       if (!isError) {
-        seterrorFields((old) => [...old, 'name-invalid']);
+        setErrorFields((old) => [...old, 'name-invalid']);
       }
     }
 
@@ -110,7 +112,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       const isError = errorFields.includes('phone-invalid');
 
       if (!isError) {
-        seterrorFields((old) => [...old, 'phone-invalid']);
+        setErrorFields((old) => [...old, 'phone-invalid']);
       }
     }
 
@@ -120,7 +122,7 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       const isError = errorFields.includes('photo-invalid');
 
       if (!isValidPhoto && photo && !isError) {
-        seterrorFields((old) => [...old, 'photo-invalid']);
+        setErrorFields((old) => [...old, 'photo-invalid']);
       }
     }
 
@@ -142,15 +144,15 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       phone,
     };
 
-    const isAllFieldaFilled = handleErrorFields(fields);
+    const isAllFields = handleErrorFields(fields);
     const isValid = handleValidateForm(fields);
 
-    return isAllFieldaFilled && isValid;
+    return isAllFields && isValid;
   };
 
   const handleOnChange = useCallback((value: string | number, name: string) => {
     setFormValues((oldData) => Object({ ...oldData, [name]: value }));
-    seterrorFields((oldNames) => oldNames
+    setErrorFields((oldNames) => oldNames
       .filter((item) => cutName(item) !== name));
   }, []);
 
@@ -162,16 +164,14 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     }
 
     setFormValues((oldData) => Object({ ...oldData, [name]: files[0] }));
-    seterrorFields((oldNames) => oldNames
+    setErrorFields((oldNames) => oldNames
       .filter((item) => cutName(item) !== name));
   }, []);
 
   const handleSubmit = async (e: OnSubmit) => {
     e.preventDefault();
 
-    const isValid = isValidForm(formValues);
-
-    if (!isValid) {
+    if (!isValidForm(formValues)) {
       return;
     }
 
@@ -184,10 +184,6 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     const { photo } = formValues;
 
-    if (!photo) {
-      return;
-    }
-
     try {
       const img = await resizeFile(photo) as File;
 
@@ -199,11 +195,6 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
 
     try {
       const { user_id: userId } = await postUserToServer(formData, token);
-
-      // if (!response.success) {
-      //   // eslint-disable-next-line @typescript-eslint/no-throw-literal
-      //   throw new Error(response.message).message;
-      // }
 
       addNewUser(userId);
     } catch (errorMessage) {
@@ -224,32 +215,19 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
       className="UserForm__form container-sm"
       onSubmit={handleSubmit}
     >
-      <Input
-        className="UserForm__input"
-        placeholder="Your name"
-        value={formValues.name}
-        isEmpty={hasError(errorFields, 'name')}
-        name="name"
-        onChange={handleOnChange}
-      />
-      <Input
-        placeholder="Email"
-        className="UserForm__input"
-        isEmpty={hasError(errorFields, 'email')}
-        value={formValues.email}
-        name="email"
-        onChange={handleOnChange}
-      />
-      <Input
-        placeholder="Phone"
-        className="UserForm__input UserForm__input--phone"
-        value={formValues.phone}
-        isEmpty={hasError(errorFields, 'phone')}
-        name="phone"
-        type="tel"
-        helperText="+38 (XXX) XXX - XX - XX"
-        onChange={handleOnChange}
-      />
+      {dataInputs.map((input) => (
+        <Input
+          key={input.name}
+          placeholder={input.placeholder}
+          className={input.className}
+          value={formValues[input.name]}
+          isEmpty={hasError(errorFields, input.name)}
+          name={input.name}
+          type={input.type as InputType}
+          helperText={input.helperText}
+          onChange={handleOnChange}
+        />
+      ))}
       {!!positions.length && (
         <PositionsList
           positions={positions}
