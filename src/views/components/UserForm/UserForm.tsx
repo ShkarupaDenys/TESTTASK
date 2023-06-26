@@ -200,8 +200,16 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     try {
       const { user_id: userId } = await postUserToServer(formData, token);
 
+      // if (!response.success) {
+      //   // eslint-disable-next-line @typescript-eslint/no-throw-literal
+      //   throw new Error(response.message).message;
+      // }
+
       addNewUser(userId);
     } catch (errorMessage) {
+      // eslint-disable-next-line no-console
+      console.error(errorMessage);
+
       if (typeof errorMessage === 'string') {
         setError(errorMessage);
       }

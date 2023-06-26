@@ -12,7 +12,7 @@ export const usePositions = () => {
       setPositions(dataPositions);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.warn(error);
+      console.error(error);
     }
   }, []);
 
