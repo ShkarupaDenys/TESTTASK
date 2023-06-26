@@ -23,11 +23,7 @@ export const resizeFile = (file: File) => new Promise((resolve) => {
 });
 
 export const optimizePhone = (phone: string) => {
-  return phone
-    .replaceAll(' ', '')
-    .replaceAll('-', '')
-    .replaceAll('(', '')
-    .replaceAll(')', '');
+  return phone.replaceAll(/ |-|\(|\)/g, '');
 };
 
 export const cutName = (name: string) => name.split('-')[0];

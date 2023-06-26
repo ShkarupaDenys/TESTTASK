@@ -26,7 +26,6 @@ export type ResponseGetUsers = {
 
 export type ResponsePostUser = {
   success: boolean,
-  user_id?: number,
+  user_id: number,
   message: string,
-  fails: {},
 };
