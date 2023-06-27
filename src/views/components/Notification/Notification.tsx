@@ -6,7 +6,7 @@ interface Props {
   text: string;
 }
 
-export const Notification: FC<Props> = ({ text = 'text' }) => (
+export const Notification: FC<Props> = ({ text = 'Notification' }) => (
   createPortal(
     <div className="Notification">
       <div className="Notification__content">

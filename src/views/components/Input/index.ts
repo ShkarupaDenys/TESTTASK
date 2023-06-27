@@ -1,2 +1,2 @@
-export { Input } from './Input';
-export { dataInputs } from './dataInputs';
+export * from './Input';
+export * from './dataInputs';

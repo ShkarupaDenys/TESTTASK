@@ -1,1 +1,1 @@
-export { PositionsList } from './PositionsList';
+export * from './PositionsList';

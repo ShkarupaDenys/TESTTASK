@@ -1,16 +1,10 @@
-import { ReactNode, memo, FC } from 'react';
+import { FC, memo } from 'react';
 import './Section.scss';
+import { SectionProps } from 'types';
 
-interface Props {
-  id?: string;
-  title: string;
-  className?: string;
-  children: ReactNode;
-}
-
-export const Section: FC<Props> = memo(({
-  title,
+export const Section: FC<SectionProps> = memo(({
   id,
+  title,
   children,
   className,
 }) => (

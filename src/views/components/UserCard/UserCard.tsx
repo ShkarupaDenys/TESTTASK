@@ -1,21 +1,18 @@
+import { FC } from 'react';
 import { PhotoCover } from 'views/icons';
 import { API } from 'utils/fetchClient';
-import { User } from 'types';
+import { UserCardProps } from 'types';
 import './UserCard.scss';
 
-interface Props {
-  user: User;
-}
-
-export const UserCard: React.FC<Props> = ({ user }) => {
+export const UserCard: FC<UserCardProps> = ({ user }) => {
   const {
-    photo,
     name,
-    position,
     email,
+    photo,
+    position,
     phone: phoneData,
   } = user;
-  const phone = phoneData.includes('+') ? phoneData : `+${phoneData}`;
+  const phone = phoneData.startsWith('+') ? phoneData : `+${phoneData}`;
 
   return (
     <div className="UserCard text-center">
@@ -36,7 +33,7 @@ export const UserCard: React.FC<Props> = ({ user }) => {
         <span className="truncate">{email}</span>
       </a>
       <a href={`tel:${phone}`} className="UserCard__phone p1">
-        {phone.startsWith('+') ? phone : `+${phone}`}
+        {phone}
       </a>
     </div>
   );

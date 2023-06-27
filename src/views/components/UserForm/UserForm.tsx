@@ -13,11 +13,11 @@ import {
   OnSubmit,
   InputType,
   FormValues,
+  UserFormProps,
 } from 'types';
 
 import {
   cutName,
-  isEmail,
   hasError,
   resizeFile,
   optimizePhone,
@@ -31,21 +31,21 @@ import {
   PositionsList,
 } from 'views/components';
 
+import {
+  useToken,
+  usePositions,
+  useUser,
+  useValidate,
+} from 'hooks';
 import { postUserToServer } from 'api';
-import { useToken, usePositions, useUser } from 'hooks';
 import './UserForm.scss';
 
-interface Props {
-  addNewUser: (userId: number) => void;
-  setError: (error: string) => void;
-}
-
-export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
+export const UserForm: FC<UserFormProps> = memo(({ addNewUser, setError }) => {
   const form = useRef(null);
   const { token, getToken } = useToken();
   const { loading, setLoading } = useUser();
+  const { errorFields, isValidForm, setErrorFields } = useValidate();
   const { positions, getPositions } = usePositions();
-  const [errorFields, setErrorFields] = useState<string[]>([]);
   const [formValues, setFormValues] = useState<FormValues>({
     name: '',
     email: '',
@@ -58,97 +58,6 @@ export const UserForm: FC<Props> = memo(({ addNewUser, setError }) => {
     getPositions();
     getToken();
   }, []);
-
-  const handleErrorFields = useCallback(
-    (values: Omit<FormValues, 'position_id'>) => {
-      Object.entries(values).forEach((field) => {
-        if (!field[1] && !errorFields.includes(field[0])) {
-          const isError = errorFields.includes(`${field[0]}-empty`);
-
-          if (isError) {
-            return;
-          }
-
-          setErrorFields((oldNames) => [...oldNames, `${field[0]}-empty`]);
-        }
-      });
-
-      const fieldValues = Object.values(values);
-
-      return !fieldValues.some((field) => !field);
-    },
-    [errorFields],
-  );
-
-  const handleValidateForm = (values: Omit<FormValues, 'position_id'>) => {
-    const {
-      name,
-      email,
-      phone,
-      photo,
-    } = values;
-
-    const isValidEmail = isEmail(email);
-    const isValidName = name.length >= 2 && name.length <= 60;
-    const isValidPhone = optimizePhone(phone).length === 13;
-
-    if (!isValidEmail && email) {
-      const isError = errorFields.includes('email-invalid');
-
-      if (!isError) {
-        setErrorFields((old) => [...old, 'email-invalid']);
-      }
-    }
-
-    if (!isValidName && name) {
-      const isError = errorFields.includes('name-invalid');
-
-      if (!isError) {
-        setErrorFields((old) => [...old, 'name-invalid']);
-      }
-    }
-
-    if (!isValidPhone && phone) {
-      const isError = errorFields.includes('phone-invalid');
-
-      if (!isError) {
-        setErrorFields((old) => [...old, 'phone-invalid']);
-      }
-    }
-
-    if (photo) {
-      const fileSize = Math.round(photo.size / 1024);
-      const isValidPhoto = fileSize < 5120;
-      const isError = errorFields.includes('photo-invalid');
-
-      if (!isValidPhoto && photo && !isError) {
-        setErrorFields((old) => [...old, 'photo-invalid']);
-      }
-    }
-
-    return isValidEmail && isValidName && isValidPhone;
-  };
-
-  const isValidForm = (values: FormValues) => {
-    const {
-      name,
-      photo,
-      email,
-      phone,
-    } = values;
-
-    const fields = {
-      name: name.trim(),
-      photo,
-      email,
-      phone,
-    };
-
-    const isAllFields = handleErrorFields(fields);
-    const isValid = handleValidateForm(fields);
-
-    return isAllFields && isValid;
-  };
 
   const handleOnChange = useCallback((value: string | number, name: string) => {
     setFormValues((oldData) => Object({ ...oldData, [name]: value }));

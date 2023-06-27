@@ -1,5 +1,3 @@
-// import { Errors } from 'types';
-
 export const API = 'https://frontend-test-assignment-api.abz.agency';
 
 type RequestMethod = 'GET' | 'POST';

@@ -1,20 +1,10 @@
 import { FC, useMemo } from 'react';
 import { Preloader } from 'views/icons';
 import classNames from 'classnames';
+import { ButtonProps } from 'types';
 import './Button.scss';
 
-interface Props {
-  path?: string;
-  disabled?: boolean;
-  loading?: boolean;
-  content: string;
-  className?: string;
-  type?: 'button' | 'submit';
-  size?: 'sm' | 'md';
-  onClick?: () => void;
-}
-
-export const Button: FC<Props> = ({
+export const Button: FC<ButtonProps> = ({
   path,
   size = 'sm',
   type = 'button',

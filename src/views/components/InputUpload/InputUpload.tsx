@@ -15,7 +15,12 @@ export const InputUpload: FC<InputUploadProps> = ({
   const errorMessage = handleErrorMessage(isEmpty, name);
 
   return (
-    <div className={classNames('InputUpload', { error: isEmpty }, className)}>
+    <div className={classNames(
+      'InputUpload',
+      { error: isEmpty },
+      className,
+    )}
+    >
       <input
         id="photo"
         type="file"

@@ -1,19 +1,16 @@
-import { Position } from 'types';
+import { FC } from 'react';
+import { PositionsListProps } from 'types';
 import { Checkbox } from 'views/components';
 
-interface Props {
-  positions: Position[];
-  currentPosition: number;
-  handleOnChange: (value: string, name: string) => void;
-}
-
-export const PositionsList: React.FC<Props> = ({
+export const PositionsList: FC<PositionsListProps> = ({
   positions,
   currentPosition,
   handleOnChange,
 }) => (
   <>
-    <p className="UserForm__positions-heading p1">Select your position</p>
+    <p className="UserForm__positions-heading p1">
+      Select your position
+    </p>
     <div className="UserForm__positions-list">
       {positions.map(({ id, name }) => (
         <Checkbox

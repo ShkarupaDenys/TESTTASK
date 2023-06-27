@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { CheckboxProps } from 'types';
 import './Checkbox.scss';
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox: FC<CheckboxProps> = ({
   id,
   label,
   disabled,
