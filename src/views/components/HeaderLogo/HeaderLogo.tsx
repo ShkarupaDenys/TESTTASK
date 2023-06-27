@@ -4,7 +4,7 @@ import './HeaderLogo.scss';
 
 export const HeaderLogo = () => (
   <Link
-    to="/"
+    to="/TESTTASK"
     className="HeaderLogo"
   >
     {}
