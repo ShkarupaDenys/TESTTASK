@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { PhotoCover } from 'views/icons';
 import { API } from 'utils/fetchClient';
 import { UserCardProps } from 'types';
@@ -25,16 +26,16 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
         <span className="truncate">{name}</span>
       </p>
       <p className="p1">{position}</p>
-      <a
-        href={`mailto:${email}`}
+      <Link
+        to={`mailto:${email}`}
         className="UserCard__email p1"
         data-title={email}
       >
         <span className="truncate">{email}</span>
-      </a>
-      <a href={`tel:${phone}`} className="UserCard__phone p1">
+      </Link>
+      <Link to={`tel:${phone}`} className="UserCard__phone p1">
         {phone}
-      </a>
+      </Link>
     </div>
   );
 };

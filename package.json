@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-image-file-resizer": "^0.4.8",
+    "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@mate-academy/eslint-config-react-typescript": "^1.0.11",
     "@mate-academy/stylelint-config": "^0.0.9",
+    "@types/react-router-dom": "^5.3.3",
     "eslint": "^8.43.0",
     "gh-pages": "^5.0.0",
     "stylelint": "^15.9.0"
